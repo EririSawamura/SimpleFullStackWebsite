@@ -22,6 +22,33 @@ router.get('/signin', function(req, res, next) {
 });
 
 router.post('/signin', function(req, res, next) {
-  res.render('users/signin', { title: 'Sign in' });
+  if (req.body.username && req.body.password) {
+    User.authenticate(req.body.username, req.body.password, function (error, user) {
+      if (error) {
+        res.render('user/signin', {
+          error: true,
+          errorMsg: 'This user does not exist. Please try again. '
+        });
+      } else if (!user || error) {
+        res.render('user/signin', {
+          error: true,
+          errorMsg: 'Username or password is incorrect. Please try again. '
+        });
+      } else {
+        res.render('users/signin', { title: 'Sign in' });
+      }
+    });
+  } else {
+    res.render('user/signin', {
+      reCaptchaKey: reCaptchaData.PublicKey,
+      error: true,
+      errorMsg: 'All fields are required. Please try again. '
+    });
+  }
+});
+
+router.post('/signup', function(req, res, next) {
+  User.newUser(req.body.username, req.body.password);
+  res.render('users/signup', { title: 'Sign up' });
 });
 module.exports = router;

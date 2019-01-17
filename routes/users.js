@@ -2,7 +2,6 @@ var express = require('express');
 var mongoose = require("mongoose");
 var router = express.Router();
 var User = require('../db/user');
-//var bcrypt = require('bcrypt');
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -25,12 +24,12 @@ router.post('/signin', function(req, res, next) {
   if (req.body.username && req.body.password) {
     User.authenticate(req.body.username, req.body.password, function (error, user) {
       if (error) {
-        res.render('user/signin', {
+        res.render('users/signin', {
           error: true,
           errorMsg: 'This user does not exist. Please try again. '
         });
       } else if (!user || error) {
-        res.render('user/signin', {
+        res.render('users/signin', {
           error: true,
           errorMsg: 'Username or password is incorrect. Please try again. '
         });
@@ -39,8 +38,7 @@ router.post('/signin', function(req, res, next) {
       }
     });
   } else {
-    res.render('user/signin', {
-      reCaptchaKey: reCaptchaData.PublicKey,
+    res.render('users/signin', {
       error: true,
       errorMsg: 'All fields are required. Please try again. '
     });
@@ -48,7 +46,9 @@ router.post('/signin', function(req, res, next) {
 });
 
 router.post('/signup', function(req, res, next) {
-  User.newUser(req.body.username, req.body.password);
-  res.render('users/signup', { title: 'Sign up' });
+  User.newUser(req.body.username, req.body.password, function(err, user){
+    console.log(user);
+    res.render('users/signup', { title: 'Sign up' });
+  });
 });
 module.exports = router;

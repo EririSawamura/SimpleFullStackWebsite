@@ -8,12 +8,12 @@ html
 
     body
       h1.text-center Sign up
-      form
-        .form-row(method='post' action='/')
+      form(method='post' action='/')
+        .form-row
           #username-container.form-group.col
             label(for='username') Username
             input#username.form-control(name='username')
           #password-container.form-group.col
             label(for='password') Password
             input#password.form-control(name='password' type='password')
-        a.btn.btn-primary.btn-block(href='..') Submit
+        button.btn.btn-primary.btn-block Submit

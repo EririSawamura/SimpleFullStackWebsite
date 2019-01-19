@@ -43,7 +43,7 @@ router.post('/signup', function(req, res, next) {
   console.log("gogogogo");
   User.newUser(req.body.username, req.body.password, function(err, user){
     console.log(user);
-    res.redirect('layout');
+    res.redirect('/users/layout');
   });
 });
 module.exports = router;

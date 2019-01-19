@@ -45,13 +45,14 @@ UserSchema.statics.newUser = function(username, password, callback) {
         username: username,
         password: hashpassword,
       };
-    });
-    User.create(UserData, function (err, user) {
-      if (!err){
-        return callback(null, user);
-      } else{
-        return callback(err, null);
-      }
+
+      User.create(UserData, function (err, user) {
+        if (!err){
+          return callback(null, user);
+        } else{
+          return callback(err, null);
+        }
+      });
     });
   }
   else return callback("parameter_missing", null);

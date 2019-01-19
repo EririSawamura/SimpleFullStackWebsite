@@ -9,10 +9,10 @@ html
   body
     block content
     h1.text-center Log in
-    form#signin-form(method='post' action='users/signin')
+    form#signin-form(method='post' action='/users/signin')
       .form-group
         input.form-control(name='username' placeholder='Username' required)
       .form-group
         input.form-control(name='password' type='password' placeholder='Password' required)
       button.btn.btn-primary.btn-block Sign In
-      a.btn.btn-primary.btn-block(href='users/signup') Sign Up
+      a.btn.btn-primary.btn-block(href='/users/signup') Sign Up
